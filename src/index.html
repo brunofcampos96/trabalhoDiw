@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
+	<script src="controller/crud.js" type="text/javascript"></script>
+	<link rel = "stylesheet" type="text/css" href="css/styles.css">
+	<link rel = "stylesheet" type="text/css" href="css/bootstrap-grid.css">
+	<link rel = "stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<title></title>
+</head>
+<body>
+	<div class="row">
+		<div id="bookImg" class="col-md-6">
+		</div>
+		<div class="form-group row"> 
+			<label for="usr" class="col-2 col-form-label">Name:</label>
+			<div class="col-10">
+		    	<input class="form-control" type="text" value="Artisanal kale" id="usr">
+			</div>
+ 			
+		</div>
+	</div>
+	<div class="btn-group" data-toggle="buttons">
+		<button type="button" class="btn btn-secondary" onclick="getBooks()">Recarregar</button>
+		<button type="button" class="btn btn-success">Inserir</button>
+		<button type="button" class="btn btn-info">Atualizar</button>
+		<button type="button" class="btn btn-warning">Excluir</button>
+	</div>	
+	<div class="table-responsive">
+		<table class="table table-bordered table-hover">
+			<thead id="thead">
+				
+			</thead>
+			<tbody id="tbody">
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
