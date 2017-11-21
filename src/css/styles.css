@@ -4,3 +4,14 @@ div.table-responsive{
 div.row{
 	margin-top: 20px;
 }
+div#inputs{
+	margin: 10px;
+}
+label.col-4.col-form-label{
+	text-align: right;
+}
+div#scroll {
+	width:300px;
+	height:60px;
+	overflow: auto;
+}
