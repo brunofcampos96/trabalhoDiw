@@ -10,7 +10,21 @@ function getBooks(){
 	})
 }
 
+function updateBook(urlComplement){
+	let data = setData();
+	execRequest("PUT", data, urlComplement);
+}
+
+function deleteBook(urlComplement){
+	execRequest("DELETE", "", urlComplement);
+}
+
 function insertBook(){
+	let data = setData();
+	execRequest("POST", data);
+}
+
+function setData(){
 	let data = "_data=";
 	let inputObj = {};
 	let inputs = document.getElementsByTagName("input");
@@ -18,13 +32,24 @@ function insertBook(){
 		inputObj[inputs[i].id] = inputs[i].value;
 		inputs[i].value = "";
 	}
-	data += JSON.stringify(inputObj);
-	$.post("http://www.smartsoft.com.br/webservice/restifydb/empresa/puc_livro/",data,function(callback){
-		if(callback.restify.affectedRows){
-			getBooks();
-		}
-	});
+	return data += JSON.stringify(inputObj);
 }
+
+function execRequest(method,data, urlComplement){
+	$.ajax(
+		{
+			url :"http://www.smartsoft.com.br/webservice/restifydb/empresa/puc_livro/"+ urlComplement,
+			type: method,
+			success: function(callback){
+				if(callback.restify.affectedRows){
+					getBooks();
+				}
+			},
+			data: data
+		}
+	)
+}
+
 function getPucLivroJSON(){
 	return $.ajax(
 		{
@@ -44,7 +69,7 @@ window.onload = function setInputFields(){
 }
 
 function setTableHeader(ownFields){
-	let columNames = "";
+	let columNames = "<th>#</th>";
 	ownFields.split(",").forEach(function(key){
 		columNames += "<th>" + this.treatColumnNames(key) + "</th>";
 	});
@@ -53,8 +78,13 @@ function setTableHeader(ownFields){
 
 function setTableBody(rows, ownFields){
 	let booksTable = "";
+
 	rows.forEach(function(book){
-		booksTable += "<tr>";
+		let bookInfo = JSON.stringify({
+			"bookValues":book.values,
+			"ownFields":ownFields
+		});
+		booksTable += "<tr><td><img src='img/si-glyph-arrow-thin-up.svg' width='22px' height='22px' onclick='fillInputs("+bookInfo+");' /></td>";
 		ownFields.split(",").forEach(function(key){
 			keyValue = book.values[key].value ? book.values[key].value : " - "; 
 			if(key == "imagem_url")
@@ -67,6 +97,12 @@ function setTableBody(rows, ownFields){
 		booksTable += "</tr>";
 	})
 	return booksTable;
+}
+
+function fillInputs(bookInfo){
+	bookInfo.ownFields.split(",").forEach(function(key){
+		document.getElementById(key).value = bookInfo.bookValues[key].value;
+	})
 }
 
 function treatColumnNames(columnName){
@@ -86,7 +122,7 @@ function treatColumnNames(columnName){
 
 function treatImage(value){
 	if(value)
-		return "<a target='_blank' href = " + keyValue + "> <img src='img/si-glyph-image.svg' style='width:20px; height:auto'> </a>" 
+		return "<a target='_blank' href = " + keyValue + "> <img src="+keyValue+" style='width:50px; height:auto'> </a>" 
 	else
 		return "<img src='img/si-glyph-delete.svg' style='width:20px; height:auto'> </a>" 
 }

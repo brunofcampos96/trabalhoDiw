@@ -21,8 +21,8 @@
 	<div class="text-center" data-toggle="buttons">
 		<button type="button" class="btn btn-secondary" onclick="getBooks()">Recarregar</button>
 		<button type="button" class="btn btn-success" onclick="insertBook()" >Inserir</button>
-		<button type="button" class="btn btn-info">Atualizar</button>
-		<button type="button" class="btn btn-warning">Excluir</button>
+		<button type="button" class="btn btn-info" onclick="updateBook(document.getElementById('id').value)">Atualizar</button>
+		<button type="button" class="btn btn-warning" onclick="deleteBook(document.getElementById('id').value)">Excluir</button>
 	</div>	
 	<div class="table-responsive">
 		<table class="table table-bordered table-hover">
