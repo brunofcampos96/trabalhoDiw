@@ -62,10 +62,19 @@ window.onload = function setInputFields(){
 	getPucLivroJSON().then(function(data){
 		let inputHTML = "";
 		data.restify.ownFields.split(",").forEach(function(key){
-			inputHTML += '<label for='+key+' class="col-4 col-form-label">'+treatColumnNames(key)+':'+'</label><div class="col-8"><input class="form-control" type="text" id='+key+'></div>'
+			let input = "<input class='form-control' type='text' id="+key+">"
+			let imagem_urlInput = "<input class='form-control' type='text' onfocusout='loadImage()' id="+key+">"
+			input = key == "imagem_url" ? imagem_urlInput : input;
+			inputHTML += '<label for='+key+' class="col-4 col-form-label">'+treatColumnNames(key)+':'+'</label><div class="col-8">'+ input +'</div>'
 		})
 		document.getElementById("inputs").innerHTML = inputHTML;
 	})
+}
+
+function loadImage(){
+	let imgUrl = document.getElementById("imagem_url").value;
+	if(imgUrl)
+		document.getElementById("bookImg").innerHTML = "<img id='bookImage' src="+imgUrl+" width='100%'>";
 }
 
 function setTableHeader(ownFields){
@@ -103,6 +112,7 @@ function fillInputs(bookInfo){
 	bookInfo.ownFields.split(",").forEach(function(key){
 		document.getElementById(key).value = bookInfo.bookValues[key].value;
 	})
+	loadImage();
 }
 
 function treatColumnNames(columnName){
