@@ -24,10 +24,10 @@ img#bookImage{
 	vertical-align:middle;
 }
 
-div.col-md-8,.col-md-4{
-	border-bottom:3px solid #b8baba;
-}
-
 div.text-center{
 	margin-top: 10px;
+}
+
+.table-responsive{
+	overflow-x:auto;
 }
