@@ -31,3 +31,7 @@ div.text-center{
 .table-responsive{
 	overflow-x:auto;
 }
+
+#logout{
+	display: none;
+}

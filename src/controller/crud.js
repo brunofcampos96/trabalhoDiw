@@ -1,3 +1,5 @@
+
+
 function getBooks(){
 	let booksTable = "";
 	getPucLivroJSON().then(function(data){
@@ -69,7 +71,36 @@ window.onload = function setInputFields(){
 		})
 		document.getElementById("inputs").innerHTML = inputHTML;
 	})
+	
 }
+
+function statusChangeCallback(response){
+	if(response.status == 'connected'){
+		document.getElementById("fbLogin").style.display = "none";
+		document.getElementById("logout").style.display = "block";
+		document.getElementById('status').style.display = "block";
+		FB.api('/me', function(response) {
+	      document.getElementById('status').innerHTML =
+	        'Você está logado como ' + response.name + '';
+	    });
+	}else{
+		document.getElementById("fbLogin").style.display = "block";
+		document.getElementById('status').style.display = "none";
+		document.getElementById("logout").style.display = "none";
+	}
+}
+
+function logoutFromFB(){
+	FB.logout(function(response){
+		statusChangeCallback(response);
+	})
+}
+
+function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
 
 function loadImage(){
 	let imgUrl = document.getElementById("imagem_url").value;

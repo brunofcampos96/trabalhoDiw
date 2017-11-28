@@ -8,9 +8,38 @@
 	<link rel = "stylesheet" type="text/css" href="css/bootstrap-grid.css">
 	<link rel = "stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script>
+
+	window.fbAsyncInit = function() {
+	    FB.init({
+	      appId      : '1985956281678133',
+	      cookie     : true,
+	      xfbml      : true,
+	      version    : 'v2.11'
+	    });
+
+	    FB.getLoginStatus(function(response) {
+    		statusChangeCallback(response);
+		});
+	      
+		FB.AppEvents.logPageView();   
+	};
+
+	  (function(d, s, id){
+	     var js, fjs = d.getElementsByTagName(s)[0];
+	     if (d.getElementById(id)) {return;}
+	     js = d.createElement(s); js.id = id;
+	     js.src = "https://connect.facebook.net/pt_BR/sdk.js";
+	     fjs.parentNode.insertBefore(js, fjs);
+	   }(document, 'script', 'facebook-jssdk'));
+	</script>
 	<title></title>
 </head>
 <body>
+	<div id="status"></div>
+	<fb:login-button id="fbLogin" scope="public_profile,email" onlogin="checkLoginState();">
+	</fb:login-button>
+	<button id="logout" type="button" class="btn btn-secondary" onclick="logoutFromFB()">Logout</button>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<div class="left">
 		<div id="bookImg" class="col-md-4">
